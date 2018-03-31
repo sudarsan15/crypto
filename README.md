@@ -13,7 +13,7 @@ The following algorthims has been used in this :
 5. SHA512
 6. HMAC
 
-#Installation
+# Installation
 1. After cloning change the current directory to crypto
 2. give the command : npm install 
 3. finally , start the node server
