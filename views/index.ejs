@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Sudarsan P S">
+    <meta name="description" content="Crypto provides a point solution for hashing">
+    <meta property="og:site_name" content="Crypto ">
+	<meta property="og:title" content="Crypto - by Sudarsan PS" />
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel='stylesheet' href='/stylesheets/main.css' />
+   	<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  </head>
+  <body>
+  	<div class="container-fluid">
+	  	<div class="row">
+	  		<div class="col-md-8">
+		    	<h1 class="font"><%= title %></h1>
+			    <% if (success !='') { %>
+
+		     		<div class="alert alert-success fade in">
+		        	  	<%= success %>
+		     		</div>
+		    	<% } %>
+		    	<% if (error !='') { %>
+		      		<div class="alert alert-danger fade in">
+		         		 <%= error %>
+		      		</div>
+		 		<% } %>
+		 	</div>	 
+	 	</div>	 
+	    <form  name="cryptoForm" id="cryptoForm" method="post">
+	    	<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+		    <div class="row">
+
+		    	<div class="col-md-4 col-xs-12 col-sm-12 input input--hoshi ">
+		    		<input type="text" name="userterm" id="userterm" class="input__field input__field--hoshi" >
+		    		<label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-4">
+						<span class="input__label-content input__label-content--hoshi"><b>Term</b></span>
+					</label>
+		    	</div>
+		    	<div class="col-md-4 col-xs-12 col-sm-12 input input--hoshi ">
+		    		<input type="text" name="salt" id="salt" class="input__field input__field--hoshi">
+		    		<label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-4">
+						<span class="input__label-content input__label-content--hoshi">Salt key</span>
+					</label>
+		    	</div>
+		    	<div class="col-md-4  col-xs-12 col-sm-12">
+		    		<input type="submit" name="submit" id="submit" class="button button--ujarak button--border-thin button--text-thick font" value="Convert">	
+		    	</div>	
+		    </div>
+		    <br/>
+		    <div class="row">
+		    	<div class="col-md-12 col-xs-12 col-sm-12 ">
+		    		<p class="font"><b>Note: </b>Salt key is used for HMAC and If salt key is not provided then, default salt key will be used where ever its neccessary </p>
+		    	</div>	
+		    </div>	
+		    <br/>
+		    <div class="row">	
+		    	
+		    </div>
+		</form>
+		<br/>
+		<div class="row">
+			<% if(md5 != null){ %>
+
+				<div class="col-md-12 col-sm-12 col-xs-12 ">
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered font">
+							<thead class="table-heading">
+								<tr>
+									<th scope="col">Details</th>
+									<th scope="col">Value </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Entered term</th>
+									<td><%= userTerm %></td>
+								</tr>
+								<tr>
+									<th><a href="https://en.wikipedia.org/wiki/Salt_(cryptography)" target="_blank" title="salt key" > Salt Key</a></th>
+									<td><%= saltKey %></td>
+								</tr>
+								<tr>
+									<th><a href="https://en.wikipedia.org/wiki/MD5" target="_blank" title="MD5 Alogrithm"  >MD5</a></th>
+									<td><%= md5 %></td>
+								</tr>
+								<tr>
+									<th><a href="https://en.wikipedia.org/wiki/SHA-1" target="_blank" title="SHA-1 Alogrithm">SHA-1</a></th>
+									<td><%= sha1 %></td>
+								</tr>
+								<tr>
+									<th><a href="https://en.wikipedia.org/wiki/SHA-2" target="_blank" title="SHA-256 Alogrithm">SHA-256</a></th>
+									<td><%= sha256 %></td>
+								</tr>
+								<tr>
+									<th><a href="https://en.wikipedia.org/wiki/SHA-2" target="_blank" title="SHA-384 Alogrithm">SHA-384</a></th>
+									<td><%= sha384 %></td>
+								</tr>
+								<tr>
+									<th><a href="https://en.wikipedia.org/wiki/SHA-2" target="_blank" title="SHA-512 Alogrithm">SHA-512</a></th>
+									<td><%= sha512 %></td>
+								</tr>
+								<tr>
+									<th><a href="https://en.wikipedia.org/wiki/HMAC" target="_blank" title="HMAC Alogrithm"> HMAC</a></th>
+									<td><%= hmac %></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>		
+				</div>	
+			<% } %>
+		</div>	
+	</div>	
+	<script src="javascripts/main.js"></script>
+	<script>
+		(function() {
+			// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+			if (!String.prototype.trim) {
+				(function() {
+					// Make sure we trim BOM and NBSP
+					var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+					String.prototype.trim = function() {
+						return this.replace(rtrim, '');
+					};
+				})();
+			}
+
+			[].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+				// in case the input is already filled..
+				if( inputEl.value.trim() !== '' ) {
+					classie.add( inputEl.parentNode, 'input--filled' );
+				}
+
+				// events:
+				inputEl.addEventListener( 'focus', onInputFocus );
+				inputEl.addEventListener( 'blur', onInputBlur );
+			} );
+
+			function onInputFocus( ev ) {
+				classie.add( ev.target.parentNode, 'input--filled' );
+			}
+
+			function onInputBlur( ev ) {
+				if( ev.target.value.trim() === '' ) {
+					classie.remove( ev.target.parentNode, 'input--filled' );
+				}
+			}
+		})();
+	</script>    	
+  </body>
+</html>
